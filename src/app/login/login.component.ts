@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // this.toastrService.success("Login Success", '', {
           //   timeOut: 2000
           // });
+          localStorage.setItem('user-data', JSON.stringify(res['data']));
           localStorage.setItem('token', res['token']);
           this.router.navigate(['home']);
         } else {
