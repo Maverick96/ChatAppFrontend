@@ -1,0 +1,49 @@
+<div class="container">
+  <h5 class="card-title text-center">Chatify</h5>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-signin">
+
+    <div *ngIf="!isLogin" class="form-group">
+      <label for="name">Name :</label>
+      <input type="text" formControlName="name" id="name" class="form-control" placeholder="Name">
+      <div *ngIf="loginForm.controls.name.invalid && loginForm.controls.name.touched">Name is
+        required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail">Email:</label>
+      <input type="email" formControlName="email" id="inputEmail" class="form-control" placeholder="Email address"
+        autofocus>
+      <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">Email is required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword">Password:</label>
+      <input type="password" formControlName="password" id="inputPassword" class="form-control" placeholder="Password">
+      <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">Password is
+        required
+      </div>
+    </div>
+
+    <div *ngIf="!isLogin" class="form-group">
+      <label for="inputCPassword">Confirm Password:</label>
+      <input type="password" formControlName="confirmPassword" id="inputCPassword" class="form-control"
+        placeholder="Confirm Password">
+      <div *ngIf="loginForm.controls.confirmPassword.invalid && loginForm.controls.confirmPassword.touched">Confirm
+        Password is
+        required
+      </div>
+    </div>
+
+    <button *ngIf="isLogin" class="btn btn-lg btn-primary btn-block text-uppercase" type="button"
+      (click)="redirectTo('sign-up')">Sign Up</button>
+
+    <button *ngIf="!isLogin" class="btn btn-lg btn-primary btn-block text-uppercase" type="button"
+      (click)="redirectTo('login')">Login</button>
+
+    <button class="btn btn-lg btn-primary btn-block text-uppercase" [disabled]="loginForm.invalid" type="submit">
+      {{buttonText}}
+    </button>
+    <hr class="my-4">
+  </form>
+</div>

@@ -1,0 +1,12 @@
+.container{
+    margin-top: 15vh;
+    border: 1px solid black
+}
+
+label{
+    float: left;
+}
+
+.form-group{
+    margin-bottom: 10px;
+}
