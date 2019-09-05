@@ -1,0 +1,5 @@
+<textarea [(ngModel)]="message">
+
+</textarea>
+
+<button mat-raised-button color="primary" [disabled]="message.length === 0" (click)="onEnterMessage()">Send</button>

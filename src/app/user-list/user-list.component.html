@@ -1,0 +1,11 @@
+<div class="container">
+  <div layout="row">
+    User List
+  </div>
+
+  <div layout="column">
+    <div flex *ngFor="let user of userList; let i = index" (click)="onSelectUser(i)">
+      {{user?.name}}
+    </div>
+  </div>
+</div>
