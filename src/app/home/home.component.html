@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
 
   <div class="col-4">
     <app-user-list></app-user-list>
@@ -7,4 +7,22 @@
     <app-message-box></app-message-box>
   </div>
 
+</div> -->
+<div class="home">
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+
+      <app-user-list></app-user-list>
+    </mat-drawer>
+
+    <div class="row menu">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+    <div class="chat-body">
+      <app-message-box class="w-100"></app-message-box>
+    </div>
+
+  </mat-drawer-container>
 </div>

@@ -1,5 +1,65 @@
-<textarea [(ngModel)]="message">
+<div class="chat-area" *ngIf="receiverUser['userId']">
+    <!-- <mat-list>
+        <mat-list-item *ngFor="let message of messageList; let i = index"
+            [ngClass]="{ sentText: message.senderId === currentUserId, receivedText: message.senderId !== currentUserId}"
+            (click)="onSelectUser(i)">
+            {{message?.message}}
+        </mat-list-item>
+    </mat-list> -->
 
-</textarea>
+    <div class="chat-header">
+        <div class="mr-3">
+            {{receiverUser['name']}}
+        </div>
+        <mat-icon (click)="connectPeer()" matListIcon>videocam</mat-icon>
+    </div>
 
-<button mat-raised-button color="primary" [disabled]="message.length === 0" (click)="onEnterMessage()">Send</button>
+    <video *ngIf="false" #streamVideo width="400" height="500"></video>
+    <input #inp type="file" style="display: none" />
+
+    <div #chatBody *ngIf="true" class="chat-body">
+        <div *ngFor="let message of messageList; let i = index">
+
+            <div class="text"
+                [ngClass]="{ sentText: message.senderId === currentUserId, receivedText: message.senderId !== currentUserId}">
+                {{message.message}}
+
+            </div>
+
+
+            <div class="emotion" *ngIf="message.senderId === currentUserId">
+                <ngx-emoji *ngIf="message.sentiment == 'positive'" [emoji]="{ id: 'grin'}" size="20"></ngx-emoji>
+                <!-- <span *ngIf="message.sentiment == 'positive'">
+                    :)
+                </span> -->
+                <ngx-emoji *ngIf="message.sentiment == 'negative'" [emoji]="{ id: 'slightly_frowning_face'}" size="20">
+                </ngx-emoji>
+                <!-- <span *ngIf="message.sentiment == 'negative'">
+                    :(
+                </span> -->
+                <ngx-emoji *ngIf="message.sentiment == 'neutral'" [emoji]="{ id: 'neutral_face'}" size="20">
+                </ngx-emoji>
+                <!-- <span *ngIf="message.sentiment == 'neutral'">
+                    :|
+                </span> -->
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="text-box">
+        <mat-icon class="emoji-icon" (click)="toggleEmojiLayout()" matListIcon>tag_faces</mat-icon>
+        <textarea #textInp [(ngModel)]="message">
+        </textarea>
+
+        <button mat-raised-button [ngClass]="{'primary-blue': message.length > 0}" [disabled]="message.length === 0"
+            (click)="onEnterMessage()">Send</button>
+
+        <div *ngIf="showEmoji" class="emoji-container">
+
+            <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+        </div>
+    </div>
+
+</div>

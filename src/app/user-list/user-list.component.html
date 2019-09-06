@@ -1,11 +1,13 @@
-<div class="container">
+<div class="container p-0">
   <div layout="row">
     User List
   </div>
 
-  <div layout="column">
-    <div flex *ngFor="let user of userList; let i = index" (click)="onSelectUser(i)">
+  <mat-list>
+    <mat-list-item *ngFor="let user of userList; let i = index" (click)="onSelectUser(i)" class="chat-list"
+      [ngClass]="{ 'selected-user': selectedUserIndex === i}">
       {{user?.name}}
-    </div>
-  </div>
+    </mat-list-item>
+  </mat-list>
+
 </div>

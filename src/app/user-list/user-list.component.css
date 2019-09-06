@@ -2,3 +2,14 @@
     width: 100%;
     height: 100%;
 }
+
+.chat-list{
+    color: #0C61F2;
+    border-top: 1px solid grey;
+    background-color: white;
+}
+
+.selected-user{
+    color: white;
+    background-color: #0C61F2;
+}

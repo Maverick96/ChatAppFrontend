@@ -13,9 +13,11 @@ import { UserListComponent } from './user-list/user-list.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 // material modules
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatSidenavModule, MatListModule, MatIconModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
     PageNotFoundComponent,
     HomeComponent,
     UserListComponent,
-    MessageBoxComponent
+    MessageBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,12 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    PickerModule,
+    EmojiModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

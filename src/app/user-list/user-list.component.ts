@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   selectedUserChatId$: Subscription;
   selectedUserIndex: number;
   ngOnInit() {
+    console.log("USer List")
     this.fetchUserList();
     this.getUserChatId();
   };
@@ -32,7 +33,14 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   }
 
+  videoCall() {
+    console.log("Video Call!");
+  }
+
   onSelectUser(index) {
+    if (this.selectedUserIndex === index) {
+      return;
+    }
     this.selectedUserIndex = index;
     console.log("CLICKED!", index)
     this.userService.setSelectedUser(this.userList[index]);

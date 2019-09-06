@@ -1,0 +1,25 @@
+.home{
+    width: 100vw;
+    height: 100vh;
+}
+
+.mat-drawer-container{
+    height: 100%;
+}
+
+.mat-drawer{
+    width: 20vw
+}
+
+.row{
+    margin: 0;
+}
+
+.chat-body{
+    height: 95vh;
+    /* width: 75vw; */
+}
+
+.menu{
+    height: 5vh;
+}

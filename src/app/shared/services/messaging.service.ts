@@ -22,10 +22,23 @@ export class MessagingService {
     this.socket.emit('message', msg);
   }
 
+  sendPeerConnectionRequest(payload) {
+    this.socket.emit('peer-connection', payload);
+  }
+
   receiveMessages() {
     // 
     return Observable.create((observer) => {
       this.socket.on(`message`, (msg) => {
+        observer.next(msg);
+      });
+    });
+  }
+
+  receivePeerKey() {
+    // 
+    return Observable.create((observer) => {
+      this.socket.on(`peer-key`, (msg) => {
         observer.next(msg);
       });
     });
