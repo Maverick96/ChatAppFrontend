@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
-        name: ['', [Validators.required]]
+        name: ['', [Validators.required]],
+        username: ['', [Validators.required]]
       });
     }
   }
