@@ -22,4 +22,18 @@
 
 .menu{
     height: 5vh;
+    align-items: center;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+}
+
+.accept-call{
+    background-color: #286d28;
+    color: white;
+}
+
+.decline-call{
+    background-color: darkred;
+    color: white;
 }

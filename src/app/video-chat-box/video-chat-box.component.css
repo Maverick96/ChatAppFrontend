@@ -1,0 +1,25 @@
+.main-video{
+    height: 70vh;
+    width: 75vw;
+}
+
+.mat-icon {
+    font-size: 40px;
+    margin: auto;
+    color: #DC143C;
+  }
+
+  .side-video{
+    position: absolute;
+    /* display: inline; */
+    z-index: 3;
+    width: 180px;
+    /* top: -226px; */
+    top: 11vh;
+    right: 11vw;
+  }
+
+  .mat-dialog-content{
+      height: 70vh;
+      max-height: unset !important;
+  }

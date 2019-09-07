@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked, 
 import { UserService } from '../shared/services/user.service';
 import { Subscription } from 'rxjs';
 import { MessagingService } from '../shared/services/messaging.service';
+import { VideoCallService } from '../shared/services/video-call.service';
 // import { Peer } from 'simple-peer';
 
 
@@ -22,14 +23,17 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
   currentUserId: number;
   chatId: number;
   peer1;
-  currentPeerKey;
+  initiatorPeerKey;
+  receiverPeerKey;
+
   isInitiator: boolean = false;
   showEmoji: boolean = false;
+  isIncomingCall: boolean = false;
 
   constructor(private userService: UserService,
-    private messagingService: MessagingService) { }
+    private messagingService: MessagingService,
+    private videoCallService: VideoCallService) { }
 
-  @ViewChild('streamVideo') videoEle: ElementRef;
   @ViewChild('chatBody') chatBodyEle: ElementRef;
   @ViewChild('textInp') textInpEle: ElementRef;
 
@@ -38,59 +42,6 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
     this.currentUserId = userData.userId;
     this.subscribeToSelectUser();
     this.subscribeToMessages();
-    this.subscribeToPeerKey();
-    console.log('Peer')
-  }
-
-  createPeerInstance() {
-
-    navigator.getUserMedia({ audio: true, video: true }, stream => {
-      this.peer1 = new SimplePeer({
-        initiator: this.isInitiator,
-        stream,
-        trickle: false
-      });
-      console.log("yes", this.peer1);
-      if (!this.isInitiator) {
-        this.peer1.signal(this.currentPeerKey);
-      }
-
-      this.peer1.on('signal', data => {
-        console.log("SIGNAL!!", data.type, this.isInitiator);
-        if (data.type && this.isInitiator) {
-          const payload = {
-            key: data,
-            receiverId: this.receiverUser['userId']
-          };
-          this.messagingService.sendPeerConnectionRequest(payload);
-        }
-        // else if (data.type) {
-        //   this.peer1.signal(data);
-        // }
-      });
-
-      this.peer1.on('data', data => {
-        console.log("DATA!!!!!")
-      })
-
-      this.peer1.on('stream', streamData => {
-        console.log("Stream started", this.videoEle.nativeElement.srcObject);
-        this.videoEle.nativeElement.srcObject = streamData;
-        this.videoEle.nativeElement.play();
-
-      });
-
-    }, err => {
-      console.error("ERRROR!", err)
-    })
-  }
-
-
-
-
-  connectPeer() {
-    this.isInitiator = true;
-    this.createPeerInstance();
   }
 
   subscribeToSelectUser() {
@@ -123,6 +74,7 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
 
   onEnterMessage() {
     console.log("Message entered!", this.message, this.chatId, this.receiverUser['userId']);
+    this.toggleEmojiLayout();
     this.messageList.push({
       message: this.message,
       senderId: this.currentUserId
@@ -151,24 +103,24 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
     })
   }
 
-  subscribeToPeerKey() {
-    this.peerKey$ = this.messagingService.receivePeerKey().subscribe(key => {
-      console.log("Key Peer-----", key);
-      this.isInitiator = false;
-      this.currentPeerKey = key;
-      this.createPeerInstance();
-    })
-  }
+
 
   addEmoji(event) {
     console.log("Event", event);
     this.message = this.message + event.emoji.native;
-    this.toggleEmojiLayout();
     // this.textInpEle.nativeElement.focus();
   }
 
   toggleEmojiLayout() {
     this.showEmoji = !this.showEmoji;
+  }
+
+  initiateVideoCall() {
+    console.log("Initiate Video CAll")
+    this.videoCallService.setSelectedUser({
+      senderId: this.currentUserId,
+      receiverId: this.receiverUser['userId'],
+    });
   }
 
 
@@ -187,6 +139,11 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
 
     if (this.peerKey$) {
       this.peerKey$.unsubscribe();
+    }
+
+    if (this.peer1) {
+      console.log("Destroying")
+      this.peer1.destroy();
     }
   }
 }

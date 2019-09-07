@@ -11,13 +11,13 @@
         <div class="mr-3">
             {{receiverUser['name']}}
         </div>
-        <mat-icon (click)="connectPeer()" matListIcon>videocam</mat-icon>
+        <mat-icon (click)="initiateVideoCall()" matListIcon>videocam</mat-icon>
     </div>
 
-    <video *ngIf="false" #streamVideo width="400" height="500"></video>
+
     <input #inp type="file" style="display: none" />
 
-    <div #chatBody *ngIf="true" class="chat-body">
+    <div #chatBody class="chat-body">
         <div *ngFor="let message of messageList; let i = index">
 
             <div class="text"
@@ -27,7 +27,7 @@
             </div>
 
 
-            <div class="emotion" *ngIf="message.senderId === currentUserId">
+            <div class="emotion">
                 <ngx-emoji *ngIf="message.sentiment == 'positive'" [emoji]="{ id: 'grin'}" size="20"></ngx-emoji>
                 <!-- <span *ngIf="message.sentiment == 'positive'">
                     :)

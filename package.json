@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "dev": "ng serve --watch",
-    "build": "ng build",
+    "build": "ng build && npm run copy",
+    "copy": "cp -R dist ../chat-app-backend",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

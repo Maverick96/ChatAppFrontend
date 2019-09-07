@@ -1,13 +1,17 @@
 <div class="container p-0">
-  <div layout="row">
-    User List
+  <div class="header">
+    <button>User List</button>
   </div>
 
-  <mat-list>
+  <mat-list class="user-list">
     <mat-list-item *ngFor="let user of userList; let i = index" (click)="onSelectUser(i)" class="chat-list"
       [ngClass]="{ 'selected-user': selectedUserIndex === i}">
       {{user?.name}}
     </mat-list-item>
   </mat-list>
+
+  <div class="footer">
+    <button (click)="logoutUser()">Logout</button>
+  </div>
 
 </div>

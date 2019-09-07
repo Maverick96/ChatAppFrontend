@@ -59,7 +59,7 @@ mat-list-item{
 .chat-body{
     display: flex;
     flex-direction: column;
-    max-height: 83vh;
+    max-height: 88vh;
     overflow: scroll;
 }
 

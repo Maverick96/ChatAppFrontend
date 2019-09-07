@@ -16,7 +16,7 @@ export class LoginService {
     return this.http.post(`${BASE_URL}/register`, payload);
   }
 
-  logout(payload) {
-    return this.http.post(`${BASE_URL}/logout`, payload);
+  logout() {
+    return this.http.get(`${BASE_URL}/logout`);
   }
 }

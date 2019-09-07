@@ -15,9 +15,17 @@
       <app-user-list></app-user-list>
     </mat-drawer>
 
-    <div class="row menu">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
+    <audio #callerTune src="../../assets/audio/hangouts_call.mp3" loop></audio>
+
+    <div *ngIf="isIncomingCall" class="menu">
+      <button type="button" mat-button class="accept-call mr-3" (click)="acceptCall()">
+        Accept
+      </button>
+      <div class="caller-name">
+        {{caller}}
+      </div>
+      <button type="button" mat-button class="decline-call ml-3" (click)="declineCall()">
+        Decline
       </button>
     </div>
     <div class="chat-body">
