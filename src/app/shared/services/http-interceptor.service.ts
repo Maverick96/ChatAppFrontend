@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { LoaderService } from './loader.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor() { }
+  constructor(private loaderService: LoaderService,
+    private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
@@ -25,15 +28,23 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
-    // this.loaderService.setLoaderState(true);
+    this.loaderService.setLoaderStatus(true);
     const self = this;
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
-          // self.loaderService.setLoaderState(false);
+          self.loaderService.setLoaderStatus(false);
         }
         return event;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error);
+        if (error.status === 403) {
+          localStorage.clear();
+          this.router.navigate(['login']);
+        }
+        this.loaderService.setLoaderStatus(false);
+        return throwError(error);
       }));
   }
 }
