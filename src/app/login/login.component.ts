@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../shared/services/login.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private loginService: LoginService,
-    private router: Router) { }
+    private router: Router,
+    private alertService: AlertService) { }
   loginForm: FormGroup;
   login$: Subscription;
   isLogin: boolean = false;
@@ -27,6 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.isLogin = false;
       this.buttonText = 'Sign Up'
     }
+
+    // this.snack.open("Hiiii");
     this.createForm();
   }
 
@@ -66,6 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem('token', res['token']);
           this.router.navigate(['home']);
         } else {
+          this.alertService.showAlert("Login Failed");
           // this.toastrService.error("Login Failed", '', {
           //   timeOut: 5000
           // });
@@ -75,6 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // this.toastrService.error("Login Failed", '', {
           //   timeOut: 5000
           // });
+          this.alertService.showAlert("Login Failed");
           console.error(err);
         })
     }
@@ -89,16 +95,19 @@ export class LoginComponent implements OnInit, OnDestroy {
           //   timeOut: 2000
           // });
           this.router.navigate(['login']);
+          this.alertService.showAlert("Sign Up Successful");
         } else {
           // this.toastrService.error("Login Failed", '', {
           //   timeOut: 5000
           // });
+          this.alertService.showAlert("Sign Up Failed");
         }
       },
         err => {
           // this.toastrService.error("Login Failed", '', {
           //   timeOut: 5000
           // });
+          this.alertService.showAlert(err['error']['error']['message']);
           console.error(err);
         })
     }

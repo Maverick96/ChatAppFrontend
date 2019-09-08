@@ -17,9 +17,10 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 // material modules
-import { MatButtonModule, MatSidenavModule, MatListModule, MatIconModule, MAT_DIALOG_DEFAULT_OPTIONS, MatProgressBarModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatSidenavModule, MatListModule, MatIconModule, MAT_DIALOG_DEFAULT_OPTIONS, MatProgressSpinnerModule, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { VideoChatBoxComponent } from './video-chat-box/video-chat-box.component';
 import { MatDialogModule } from "@angular/material";
+
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
@@ -47,14 +48,19 @@ import { LoaderComponent } from './loader/loader.component';
     PickerModule,
     EmojiModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpInterceptorService,
     multi: true
   },
-  { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
+  {
+    provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false }
+  },
+  { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3500, horizontalPosition: 'center' } }
+  ],
   entryComponents: [VideoChatBoxComponent],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { UserService } from '../shared/services/user.service';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../shared/services/login.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +14,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
     private loginService: LoginService,
-    private router: Router) { }
+    private router: Router,
+    private alertService: AlertService) { }
   userList: any[] = [];
   totalUsers: number = 0;
   userList$: Subscription;
@@ -34,6 +36,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.totalUsers = data['total'];
       }
     }, err => {
+      this.alertService.showAlert("User list could not be fetched!");
       console.log("Error", err);
     });
 
@@ -66,7 +69,10 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.router.navigate(['login']);
       } else {
         // show alert
+        this.alertService.showAlert("Logout failed");
       }
+    }, err => {
+      this.alertService.showAlert("Logout failed");
     })
   }
 

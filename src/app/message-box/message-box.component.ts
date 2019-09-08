@@ -3,6 +3,7 @@ import { UserService } from '../shared/services/user.service';
 import { Subscription } from 'rxjs';
 import { MessagingService } from '../shared/services/messaging.service';
 import { VideoCallService } from '../shared/services/video-call.service';
+import { AlertService } from '../shared/services/alert.service';
 // import { Peer } from 'simple-peer';
 
 
@@ -32,7 +33,8 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
     private messagingService: MessagingService,
-    private videoCallService: VideoCallService) { }
+    private videoCallService: VideoCallService,
+    private alertService: AlertService) { }
 
   @ViewChild('chatBody') chatBodyEle: ElementRef;
   @ViewChild('textInp') textInpEle: ElementRef;
@@ -61,6 +63,7 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
         this.scrollToBottom();
       }, err => {
         console.error(err);
+        this.alertService.showAlert("Message could not be fetched!");
         this.chatId = null;
         this.messageList = [];
       })
@@ -96,7 +99,7 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
       console.log("received", msg);
       if (msg && msg.sentiment) {
         this.messageList[msg.index]['sentiment'] = msg.sentiment
-      } else {
+      } else if (msg['senderId'] === this.receiverUser['userId']) { // push msg only if you're in the receiver's chat window
         this.messageList.push(msg);
       }
       this.scrollToBottom();

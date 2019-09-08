@@ -9,7 +9,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .primary-blue{
     background-color: #0C61F2;
-    color: white;
+    color: white !important;
+}
+
+.green-dot{
+    height: 10px;
+    width: 10px;
+    background-color: #286d28;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 4px;
+}
+
+simple-snack-bar span {
+  margin:auto;
+  text-align: center;
+}
+
+.pointer{
+  cursor: pointer;
 }
 
 .emoji-mart,

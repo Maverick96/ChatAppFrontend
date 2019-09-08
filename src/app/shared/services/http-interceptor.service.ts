@@ -14,7 +14,6 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
-    console.log("TOKEN ", token)
     if (token) {
       request = request.clone({
         setHeaders: {
@@ -38,7 +37,6 @@ export class HttpInterceptorService implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("error", error);
         if (error.status === 403) {
           localStorage.clear();
           this.router.navigate(['login']);

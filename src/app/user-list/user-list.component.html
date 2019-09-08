@@ -4,9 +4,10 @@
   </div>
 
   <mat-list class="user-list">
-    <mat-list-item *ngFor="let user of userList; let i = index" (click)="onSelectUser(i)" class="chat-list"
+    <mat-list-item *ngFor="let user of userList; let i = index" (click)="onSelectUser(i)" class="chat-list pointer"
       [ngClass]="{ 'selected-user': selectedUserIndex === i}">
       {{user?.name}}
+      <span class="green-dot"></span>
     </mat-list-item>
   </mat-list>
 
