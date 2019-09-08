@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openVideoBox(data) {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
+    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = data;
     dialogConfig.height = "80vh";
