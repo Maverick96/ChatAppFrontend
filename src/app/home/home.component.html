@@ -17,7 +17,7 @@
 
     <audio #callerTune src="../../assets/audio/hangouts_call.mp3" loop></audio>
 
-    <div *ngIf="true || isIncomingCall" class="caller-info">
+    <div *ngIf="isIncomingCall" class="caller-info">
       <button type="button" mat-button class="accept-call mx-3" (click)="acceptCall()">
         Accept
       </button>

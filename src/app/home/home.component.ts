@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private dialogService: MatDialog) {
     const userData = JSON.parse(localStorage.getItem('user-data'));
     if (userData) {
-      this.caller = userData['name'];
+      this.currentUserName = this.caller = userData['name'];
     }
     console.log("CAller!", this.caller);
   }
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   isIncomingCall: boolean = false;
   initData;
+  currentUserName: string;
   caller: string;
   ngOnInit() {
     // open nav by default
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   acceptCall() {
     this.openVideoBox(this.initData);
     this.isIncomingCall = false;
-    this.stopCallerTune()
+    this.stopCallerTune();
   }
 
   declineCall() {
@@ -73,6 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       //open dialog here for initiator
       console.log("User Data", userData);
       if (userData['receiverId'] && userData['senderId']) {
+        this.caller = this.currentUserName
         const data = {
           key: undefined,
           isInitiator: true,
@@ -81,6 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           caller: this.caller
         };
         this.openVideoBox(data);
+        this.playCallerTune();
       }
     })
   }
@@ -94,7 +97,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.isIncomingCall = true;
         initData['isInitiator'] = false;
         this.initData = initData;
-        this.callerTune.nativeElement.play();
+        this.playCallerTune();
       }
     })
   }
@@ -106,6 +109,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.videoCallService.setInitiatorData(data);
       } else if (data['isInitiator'] === false) {
         this.videoCallService.setReceiverData(data);
+        this.stopCallerTune();
       }
     })
   }
@@ -117,6 +121,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.videoCallService.setSelectedUser({});
     this.videoCallService.setInitiatorData({});
 
+  }
+
+  playCallerTune() {
+    this.callerTune.nativeElement.play();
   }
 
   stopCallerTune() {
