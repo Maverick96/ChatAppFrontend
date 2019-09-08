@@ -77,7 +77,9 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
 
   onEnterMessage() {
     console.log("Message entered!", this.message, this.chatId, this.receiverUser['userId']);
-    this.toggleEmojiLayout();
+    if (this.showEmoji) {
+      this.toggleEmojiLayout();
+    }
     this.messageList.push({
       message: this.message,
       senderId: this.currentUserId

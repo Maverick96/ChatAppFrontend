@@ -11,7 +11,7 @@
         <div class="mr-3">
             {{receiverUser['name']}}
         </div>
-        <mat-icon (click)="initiateVideoCall()" matListIcon>videocam</mat-icon>
+        <mat-icon class="pointer" (click)="initiateVideoCall()" matListIcon>videocam</mat-icon>
     </div>
 
 
@@ -51,7 +51,7 @@
 
     <div class="text-box">
         <mat-icon class="emoji-icon pointer" (click)="toggleEmojiLayout()" matListIcon>tag_faces</mat-icon>
-        <textarea #textInp [(ngModel)]="message">
+        <textarea #textInp (keyup.enter)="onEnterMessage()" [(ngModel)]="message">
         </textarea>
 
         <button mat-raised-button
