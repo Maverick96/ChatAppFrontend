@@ -74,6 +74,7 @@ export class VideoChatBoxComponent implements OnInit, OnDestroy {
         stream,
         trickle: false
       });
+      console.log("Peer created!");
 
       // connect to initiator if you're the receiver
       if (!this.isInitiator) {

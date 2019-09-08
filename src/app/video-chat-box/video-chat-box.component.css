@@ -20,6 +20,8 @@
   }
 
   .mat-dialog-content{
-      height: 70vh;
-      max-height: unset !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    max-height: none !important;
   }

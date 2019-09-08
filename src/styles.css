@@ -118,7 +118,7 @@ simple-snack-bar span {
 }
 
 .emoji-mart-scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 270px;
   padding: 0 6px 6px 6px;
   will-change: transform; /* avoids "repaints on scroll" in mobile Chrome */
@@ -358,4 +358,5 @@ simple-snack-bar span {
 
 .mat-dialog-container{
   background-color: black !important;
+  overflow: hidden !important;
 }
