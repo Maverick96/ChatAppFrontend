@@ -1,6 +1,7 @@
 .container{
-    /* margin-top: 15vh; */
-    border: 1px solid black
+    margin-top: 15vh;
+    border: 1px solid black;
+    background: linear-gradient(90deg, rgb(190, 230, 236), rgb(99, 195, 241));
 }
 
 label{

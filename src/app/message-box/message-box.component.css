@@ -14,24 +14,19 @@
 
 .text-box{
     display: flex;
-    position: fixed;
-    bottom: 3px;
+    position: relative;
     width: 100%;
     height: 7vh;
 }
 
 textarea{
-    width: 72%;
-}
-
-button{
-    width: 6%;
+    flex: 1;
 }
 
 .chat-area{
     width: 100%;
-    height: 100%;
-    background-color: #d4d0d2;
+    height: 100vh;
+    background: linear-gradient(90deg, rgb(190, 230, 236), rgb(99, 195, 241));
 }
 
 mat-list-item{
@@ -41,7 +36,7 @@ mat-list-item{
 
 .emotion{
     display: inline-block;
-    float: right;
+    /* float: right; */
     position: relative;
     bottom: -14px;
     margin-right: 4px;
@@ -61,6 +56,7 @@ mat-list-item{
     flex-direction: column;
     max-height: 88vh;
     overflow: scroll;
+    height: 88vh;
 }
 
 .chat-header{
@@ -73,12 +69,21 @@ mat-list-item{
 }
 
 .emoji-container{
-    position: relative;
-    left: -22vw;
-    bottom: 44vh;
+    position: absolute;
+    bottom: 7vh;
 }
 
 .emoji-icon{
     position: relative;
     bottom: -20px;
+}
+
+.no-user{
+    width: 100%;
+    height: 100vh;
+    background:linear-gradient(90deg, rgb(190, 230, 236), rgb(99, 195, 241));
+}
+
+.disable-button{
+    background-color: #dededc !important;
 }
