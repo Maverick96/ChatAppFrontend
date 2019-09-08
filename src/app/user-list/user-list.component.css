@@ -33,7 +33,8 @@
 
 .user-list{
     max-height: 88vh;
-    overflow: scroll;
+    overflow: auto;
+    height: 88vh;
 }
 
 button{
