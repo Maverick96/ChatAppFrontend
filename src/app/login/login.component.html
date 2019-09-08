@@ -22,7 +22,9 @@
       <label for="inputEmail">Email:</label>
       <input type="email" formControlName="email" id="inputEmail" class="form-control" placeholder="Email address"
         autofocus>
-      <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">Email is required</div>
+      <div
+        *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched && loginForm.controls.email.dirty">
+        Email is required</div>
     </div>
 
     <div class="form-group">
