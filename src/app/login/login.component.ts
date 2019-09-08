@@ -29,8 +29,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.isLogin = false;
       this.buttonText = 'Sign Up'
     }
-
-    // this.snack.open("Hiiii");
     this.createForm();
   }
 
@@ -63,23 +61,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       this.login$ = this.loginService.login(this.loginForm.value).subscribe(res => {
         if (res['success']) {
-          // this.toastrService.success("Login Success", '', {
-          //   timeOut: 2000
-          // });
           localStorage.setItem('user-data', JSON.stringify(res['data']));
           localStorage.setItem('token', res['token']);
           this.router.navigate(['home']);
         } else {
           this.alertService.showAlert("Login Failed");
-          // this.toastrService.error("Login Failed", '', {
-          //   timeOut: 5000
-          // });
         }
       },
         err => {
-          // this.toastrService.error("Login Failed", '', {
-          //   timeOut: 5000
-          // });
           this.alertService.showAlert("Login Failed");
           console.error(err);
         })
@@ -91,22 +80,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid && this.isPasswordSame) {
       this.login$ = this.loginService.signUp(this.loginForm.value).subscribe(res => {
         if (res['success']) {
-          // this.toastrService.success("Login Success", '', {
-          //   timeOut: 2000
-          // });
           this.router.navigate(['login']);
           this.alertService.showAlert("Sign Up Successful");
         } else {
-          // this.toastrService.error("Login Failed", '', {
-          //   timeOut: 5000
-          // });
           this.alertService.showAlert("Sign Up Failed");
         }
       },
         err => {
-          // this.toastrService.error("Login Failed", '', {
-          //   timeOut: 5000
-          // });
           this.alertService.showAlert(err['error']['error']['message']);
           console.error(err);
         })

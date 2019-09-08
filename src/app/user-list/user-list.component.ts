@@ -24,7 +24,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   selectedUserChatId$: Subscription;
   selectedUserIndex: number;
   ngOnInit() {
-    console.log("USer List")
     this.fetchUserList();
     this.getUserChatId();
   };
@@ -40,10 +39,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       console.log("Error", err);
     });
 
-  }
-
-  videoCall() {
-    console.log("Video Call!");
   }
 
   onSelectUser(index) {
